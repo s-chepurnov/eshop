@@ -1,0 +1,28 @@
+<%@page import="org.shop.entity.Customer"%>
+<%
+	Customer customer = (Customer) session.getAttribute("customer");
+	if (customer != null) {
+		out.print("Hello, " + customer.getFirstName());
+	} else {
+		out.print("Hello, " + "<a href='login.jsp'>login</a>" + " or "
+				+ "<a href='register.jsp'>register</a>;");
+	}
+%>
+
+<%
+	out.print("    Cookie:");
+	String cookieName = "cart";
+	Cookie[] cookies = request.getCookies();
+	Cookie myCookie = null;
+	if (cookies != null) {
+		for (int i = 0; i < cookies.length; i++) {
+			if (cookies[i].getName().equals(cookieName)) {
+				myCookie = cookies[i];
+				out.print(myCookie.getName());
+				out.print(" - ");
+				out.print(myCookie.getValue());
+				break;
+			}
+		}
+	}
+%>

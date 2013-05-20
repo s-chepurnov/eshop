@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<context>
+    <bean name="productDao" class="org.shop.dao.ProductDaoJdbcImpl"/>
+    <bean name="customerDao" class="org.shop.dao.CustomerDaoJdbcImpl"/>
+    <bean name="supplierDao" class="org.shop.dao.SupplierDaoJdbcImpl"/>
+    <bean name="categoryDao" class="org.shop.dao.CategoryDaoJdbcImpl"/>
+    <bean name="trManager" class="org.shop.dao.TransactionManagerImpl"/>
+    
+</context>

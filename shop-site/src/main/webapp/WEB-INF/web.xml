@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+version="3.0">
+
+
+<filter>
+    <filter-name>loginStrFilter</filter-name>
+    <filter-class>org.shop.site.LoginStrFilter</filter-class>
+    <init-param>
+	    <param-name>appCtxClass</param-name>
+	    <param-value>org.shop.inject.ApplicationContextDomImpl</param-value>
+	</init-param>
+	<init-param>
+	    <param-name>appCtxPath</param-name>
+	    <param-value>applicationContext.xml</param-value>
+	</init-param>
+</filter>
+<filter-mapping>
+    <filter-name>loginStrFilter</filter-name>
+    <servlet-name>loginController</servlet-name>
+    <!--  <url-pattern>/login</url-pattern> --> 
+</filter-mapping>
+
+<filter>
+    <filter-name>loginDBFilter</filter-name>
+    <filter-class>org.shop.site.LoginDBFilter</filter-class>
+    <init-param>
+	    <param-name>appCtxClass</param-name>
+	    <param-value>org.shop.inject.ApplicationContextDomImpl</param-value>
+	</init-param>
+	<init-param>
+	    <param-name>appCtxPath</param-name>
+	    <param-value>applicationContext.xml</param-value>
+	</init-param>
+</filter>
+<filter-mapping>
+    <filter-name>loginDBFilter</filter-name>
+    <servlet-name>loginController</servlet-name>
+</filter-mapping>
+
+<servlet>
+	<servlet-name>productController</servlet-name>
+	<servlet-class>org.shop.site.ProductController</servlet-class>
+	<init-param>
+	    <param-name>appCtxClass</param-name>
+	    <param-value>org.shop.inject.ApplicationContextDomImpl</param-value>
+	</init-param>
+	<init-param>
+	    <param-name>appCtxPath</param-name>
+	    <param-value>applicationContext.xml</param-value>
+	</init-param>
+</servlet>
+<servlet-mapping>
+	<servlet-name>productController</servlet-name>
+	<url-pattern>/product</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>productsController</servlet-name>
+	<servlet-class>org.shop.site.ProductsController</servlet-class>
+	<init-param>
+	    <param-name>appCtxClass</param-name>
+	    <param-value>org.shop.inject.ApplicationContextDomImpl</param-value>
+	</init-param>
+	<init-param>
+	    <param-name>appCtxPath</param-name>
+	    <param-value>applicationContext.xml</param-value>
+	</init-param>
+</servlet>
+<servlet-mapping>
+	<servlet-name>productsController</servlet-name>
+	<url-pattern>/products</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>loginController</servlet-name>
+	<servlet-class>org.shop.site.LoginController</servlet-class>
+	<init-param>
+	    <param-name>appCtxClass</param-name>
+	    <param-value>org.shop.inject.ApplicationContextDomImpl</param-value>
+	</init-param>
+	<init-param>
+	    <param-name>appCtxPath</param-name>
+	    <param-value>applicationContext.xml</param-value>
+	</init-param>
+</servlet>
+<servlet-mapping>
+	<servlet-name>loginController</servlet-name>
+	<url-pattern>/login</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>registerController</servlet-name>
+	<servlet-class>org.shop.site.RegisterController</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>registerController</servlet-name>
+	<url-pattern>/register</url-pattern>
+</servlet-mapping>
+
+
+<session-config>
+    <session-timeout>30</session-timeout>
+</session-config>
+
+<welcome-file-list>
+<welcome-file>index.jsp</welcome-file>
+</welcome-file-list>
+
+</web-app>
