@@ -10,6 +10,7 @@ public class ProductDaoJdbcImpl extends AbstractDao<Product> implements ProductD
 
 	public static final String QUERY_SELECT_ALL = "SELECT * FROM shop.products";
 	public static final String QUERY_SELECT_PAGE = "SELECT * FROM shop.products ORDER BY ProductID ASC LIMIT ";
+	public static final String QUERY_SELECT_COUNT = "SELECT COUNT(*) FROM shop.products USE INDEX(PRIMARY)";
 	public static final String QUERY_SELECT_BY_ID = "SELECT * FROM shop.products WHERE ProductID= ";
 	public static final String QUERY_DELETE_BY_ID = "DELETE FROM shop.products WHERE ProductID = ";
 	public static final String QUERY_PREPARED_INSERT="INSERT INTO Products"				
@@ -21,6 +22,11 @@ public class ProductDaoJdbcImpl extends AbstractDao<Product> implements ProductD
 		List<Product> products = selectAll(QUERY_SELECT_ALL, new ProductExtractor(), new ProductEnricher(supplierDao, categoryDao));
 		return products;
 	}
+	@Override
+	public int selectCount() throws DBSystemException {
+		return selectOneRow(QUERY_SELECT_COUNT);
+	}
+	
 	@Override
 	public List<Product> selectPagination(int from, int count) throws DBSystemException {
 		List<Product> products = selectAll(QUERY_SELECT_PAGE + from+","+count, new ProductExtractor(), new ProductEnricher(supplierDao, categoryDao));

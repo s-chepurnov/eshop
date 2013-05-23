@@ -1,4 +1,6 @@
 <%@page import="org.shop.entity.Customer"%>
+
+<!-- Hello, 'Customer' or login and register -->
 <%
 	Customer customer = (Customer) session.getAttribute("customer");
 	if (customer != null) {
@@ -9,7 +11,16 @@
 	}
 %>
 
-<%
+<!-- Menu -->
+<br>
+<a href="index.jsp">index.jsp</a>   
+<a href="products.jsp">products.jsp</a>   
+<a href="login.jsp">login form</a>
+<a href="register.jsp">register form</a>   
+
+<!-- Work with cookies -->
+<% 
+/*
 	out.print("    Cookie:");
 	String cookieName = "cart";
 	Cookie[] cookies = request.getCookies();
@@ -25,4 +36,5 @@
 			}
 		}
 	}
+*/
 %>

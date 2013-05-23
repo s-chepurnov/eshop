@@ -56,7 +56,7 @@ public abstract class AbstractDao<T> {
 			return result;
 		}catch(SQLException e){
 			logger.warn("exception occur while extracting data", e);
-			throw new DBSystemException("can't execute SQL query " + sql+ " " + e.getMessage(), e);
+			throw new DBSystemException("can't execute SQL query '" + sql+ "' \n" + e.getMessage(), e);
 		}
 		finally{
 			logger.debug("try to close resultSet");
@@ -85,7 +85,7 @@ public abstract class AbstractDao<T> {
 			return result;
 		}catch(SQLException e){
 			logger.warn("exception occur while extracting data", e);
-			throw new DBSystemException("can't selectById " + sql + "\n" + e.getMessage(), e);
+			throw new DBSystemException("can't selectById '" + sql + "' \n" + e.getMessage(), e);
 		}
 		finally{
 			logger.debug("try to close resultSet");
@@ -94,7 +94,37 @@ public abstract class AbstractDao<T> {
 			JdbcUtils.closeQuietly(statement);
 		}
 	}
+	protected int selectOneRow(String sql) throws DBSystemException {
 
+		Connection connection = getSerializableConnection();
+		Statement statement = null;
+		ResultSet resultSet = null;
+		Integer result = null;
+		try{
+			logger.debug("createStatement()");
+			statement = connection.createStatement();
+			logger.debug("executeQuery(sql)" + sql);
+			resultSet = statement.executeQuery(sql);
+			while (resultSet.next()){ 
+				//rs.getInt(1) -- returns the first column from the resultSet as an int
+				//If you have more values use rs.getInt(2) to get the second value etc...
+				//stackoverflow.com/questions/5794186/assigning-select-count-query-result-to-a-java-variable
+				result = resultSet.getInt(1);
+				logger.debug("extract: " + result);
+			}
+			return result;
+		}catch(SQLException e){
+			logger.warn("exception occur while extracting data", e);
+			throw new DBSystemException("can't select '" + sql + "' \n" + e.getMessage(), e);
+		}
+		finally{
+			logger.debug("try to close resultSet");
+			JdbcUtils.closeQuietly(resultSet);
+			logger.debug("try to close statement");
+			JdbcUtils.closeQuietly(statement);
+		}
+	}
+	
 	protected boolean insertOne(String sqlPrepared, T entity, Preparator<T> pr) throws DBSystemException {
 		boolean fine = false;
 		Connection connection = getSerializableConnection();
@@ -113,7 +143,7 @@ public abstract class AbstractDao<T> {
 			return fine;
 		}catch(SQLException e){
 			logger.warn("exception occur while inserting data", e);
-			throw new DBSystemException("can't execute INSERT " + sqlPrepared + "\n" + e.getMessage(), e);
+			throw new DBSystemException("can't execute INSERT '" + sqlPrepared + "' \n" + e.getMessage(), e);
 		}
 		finally{
 			logger.debug("try to close PreparedStatement");
@@ -137,7 +167,7 @@ public abstract class AbstractDao<T> {
 			return fine;
 		}catch(SQLException e){
 			logger.warn("exception occur while delete data", e);
-			throw new DBSystemException("can't execute DELETE " + sql + "\n" + e.getMessage(), e);
+			throw new DBSystemException("can't execute DELETE '" + sql + "' \n" + e.getMessage(), e);
 		}
 		finally{
 			logger.debug("try to close statement");

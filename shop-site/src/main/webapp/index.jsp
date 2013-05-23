@@ -5,7 +5,7 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Main Page</title>
+<title>Main page</title>
 </head>
 <body>
 <%@ include file="header.jspf"%>

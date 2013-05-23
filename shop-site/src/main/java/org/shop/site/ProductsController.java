@@ -27,8 +27,10 @@ public class ProductsController extends DependencyInjectionServlet{
 	public static final String PARAM_FROM = "from";
 	public static final String PARAM_COUNT = "count";
 	public static final String ATTRIB_PRODUCTS= "products";
+	public static final String ATTRIB_TOTALROWS= "totalRows";
 	public static final String PAGE_OK= "products.jsp";
 	public static final String PAGE_ERR= "index.jsp";
+	public static final int NUM_PAGES = 12;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response){
@@ -41,11 +43,16 @@ public class ProductsController extends DependencyInjectionServlet{
 				final Integer count = Integer.valueOf(countStr);
 				
 				List<Product> products = selectPagination(from,count); 
-			
+				
 				if(products != null){
-					
 					request.setAttribute(ATTRIB_PRODUCTS, products);
 					logger.debug("setAttribute:" + ATTRIB_PRODUCTS);
+					
+					int totalRows = selectCount();
+					logger.debug("totalRows: " + totalRows);
+					request.setAttribute(ATTRIB_TOTALROWS, totalRows);
+					logger.debug("setAttribute:" + ATTRIB_TOTALROWS);
+					
 					//OK
 					request.getRequestDispatcher(PAGE_OK).forward(request, response);
 					logger.debug("getRequestDispatcher(" + PAGE_OK + ")forward(req, resp)");
@@ -78,5 +85,19 @@ public class ProductsController extends DependencyInjectionServlet{
 					}
 				});
 		return listProducts;
+	}
+	private int selectCount() throws Exception{
+		int count = trManager.doInTransaction(new Callable<Integer>(){
+					public Integer call() throws Exception{
+						Integer result = null;
+						try{
+							result = productDao.selectCount();
+						}catch(DBSystemException e){
+							logger.warn("DBSystemException occur when doInTransaction(): ",e);
+						}
+						return result;
+					}
+				});
+		return count;
 	}
 }
