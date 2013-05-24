@@ -15,9 +15,9 @@ pageEncoding="UTF-8"%>
 </br>
 <a href="product?id=3">product?id=3</a>
 </br>
-<a href="http://localhost:8080/shop-site/products?from=0&count=10">products?from=0&count=10</a>
+<a href="http://localhost:8080/shop-site/products?p=1">products?p=1</a>
 </br>
-<a href="products?from=10&count=10">products?from=10&count=10</a>
+<a href="products?p=2">page 2</a>
 </br>
 <a href="login">loginController</a>    
 </br>

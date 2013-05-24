@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 
@@ -11,8 +10,14 @@
 <body>
 <%@ include file="header.jspf"%>
 <br><br><br>
-units of products: ${totalRows} <br>
-pagination: 1,2,3 ... n <br>
+
+<!-- total pages: <a href="products?p=${totalPages}">${totalPages}</a> -->
+ 
+<br>page:&nbsp;|&nbsp;
+<c:forEach var="link" items="${requestScope.links}">
+	<a href="products?p=${link}">${link}</a>&nbsp; 
+</c:forEach>
+|<br>
 
 	<table border="1">
 		<c:forEach var="product" items="${requestScope.products}">

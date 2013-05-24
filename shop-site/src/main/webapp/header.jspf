@@ -13,8 +13,8 @@
 
 <!-- Menu -->
 <br>
-<a href="index.jsp">index.jsp</a>   
-<a href="products.jsp">products.jsp</a>   
+<a href="index.jsp">main page</a>   
+<a href="products?p=1">products</a>   
 <a href="login.jsp">login form</a>
 <a href="register.jsp">register form</a>   
 

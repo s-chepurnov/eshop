@@ -21,8 +21,6 @@ import org.shop.utils.ClassNameUtil;
 
 public class LoginDBFilter implements Filter{
 
-	private static final long serialVersionUID = 1L;
-	
 	public static final String PARAM_EMAIL = "email";
 	public static final String PARAM_PASSWORD = "password";
 	
@@ -49,14 +47,6 @@ public class LoginDBFilter implements Filter{
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
 			throws IOException, ServletException {
 		logger.trace("LoginDBFilter start implementing doFilter()");
-//		DependencyInjectionServlet dis = new DependencyInjectionServlet();
-//		dis.init(this.getClass());
-		
-//		logger.trace("LoginDBFilter create new LoginDBFilter()");
-//		LoginDBFilter loginDBFilter = new LoginDBFilter(); 
-//		this.customerDao = loginDBFilter.customerDao;
-//		this.trManager = loginDBFilter.trManager;
-//		logger.trace("LoginDBFilter sets all inject fields: '" + this.customerDao + ", " + this.trManager+"'");
 		
 		String login = request.getParameter(PARAM_EMAIL);
 		String pass = request.getParameter(PARAM_PASSWORD);
